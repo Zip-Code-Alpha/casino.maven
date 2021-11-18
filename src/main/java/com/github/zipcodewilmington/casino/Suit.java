@@ -14,7 +14,7 @@ public enum Suit {
         this.abbr = abbr;
         this.color = color;
     }
-    String getAbbr(){
+    String getShortening(){
         return this.abbr;
     }
     AnsiColor getColor(){

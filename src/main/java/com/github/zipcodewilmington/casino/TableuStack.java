@@ -6,7 +6,7 @@ import java.util.List;
 
 public class TableuStack {
     private NodedLinkedList<Card> showing;
-    private LinkedList<Card> hidden;
+    private LinkedList<Card> hidden; //stack
     public TableuStack(){
         hidden = new LinkedList<>();
         showing = new NodedLinkedList<>();

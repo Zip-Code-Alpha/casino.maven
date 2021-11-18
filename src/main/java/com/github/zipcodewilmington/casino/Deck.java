@@ -25,7 +25,7 @@ public class Deck {
         if (o == null || getClass() != o.getClass()) return false;
         return this.getDeck().equals(((Deck) o).cards);
     }
-    private LinkedList<Card> getDeck(){
+    public LinkedList<Card> getDeck(){
         return this.cards;
     }
 

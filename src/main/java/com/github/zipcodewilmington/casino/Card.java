@@ -31,4 +31,9 @@ public class Card {
     public int hashCode() {
         return Objects.hash(rank, suit);
     }
+    @Override
+    public String toString(){
+
+    }
+
 }
