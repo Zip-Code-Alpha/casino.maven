@@ -1,5 +1,6 @@
 package com.github.zipcodewilmington.casino;
 
+import java.util.Collections;
 import java.util.LinkedList;
 //3rd card is top of talon
 public class Talon {
@@ -48,6 +49,7 @@ public class Talon {
         }
         LinkedList<Card> temp = talonStack;
         this.talonStack.clear();
+        Collections.reverse(talonStack);
         return temp;
     }
     //toString of Card //call every update?

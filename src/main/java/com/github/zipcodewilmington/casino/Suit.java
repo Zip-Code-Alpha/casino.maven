@@ -20,5 +20,6 @@ public enum Suit {
     AnsiColor getColor(){
         return this.color;
     }
+    int getValue(){ return this.ordinal();};
 
 }
