@@ -31,9 +31,14 @@ public class TableuStack {
         //logger perhaps?
     }
     //pre-conditions: cardsToOmit is less than length of sequence and greater than 0
-    public Node<Card> emmigrateSequence(int cardsToOmit){
-        return showing.retrieveSubList(cardsToOmit);
+    //public Node<Card> emmigrateSequence(int cardsToOmit){
+    //return showing.retrieveSubList(cardsToOmit);
+    //}
+    public Node<Card> emmigrateSequence(Node<Card> nodeToRemove){
+        return showing.retrieveSubList(nodeToRemove);
     }
+    public Node<Card> brieflyEmmigrateSequence(int cardsToOmit){return showing.peekSubList(cardsToOmit);}
+    //make this a boolean and allow it to judge
     public void immigrateSequence(Node<Card> other){
         showing.addNode(other);
     }

@@ -63,25 +63,37 @@ public class NodedLinkedList<E> {
     public int getSize(){
         return size;
     }
-    //pre-condition: nTO is not less than 0 and does not exceed or equal the size of the list
-    public Node<E> retrieveSubList(int nodesToOmit){ //start from head and go down // zero nTO is all cards //V
-        int currInd = 0;
+    public Node<E> retrieveSubList(Node<E> nodeToRemove){
         Node<E> curr = this.head;
         Node<E> prev = curr;
         size = 0;
-        if(nodesToOmit == 0){
+        if(new NodedLinkedList<E>(nodeToRemove).equals(this)){
             tail = null;
             head = null;
             return curr;
         }
-        while(currInd < nodesToOmit){
+        while(!curr.next.equals(nodeToRemove)){
             size++;
+            prev = curr;
+            curr = curr.next;
+        }
+        prev.next = null;
+        tail = prev;
+        return curr;
+    }
+    //pre-condition: nTO is not less than 0 and does not exceed or equal the size of the list
+    public Node<E> peekSubList(int nodesToOmit){//start from head and go down // zero nTO is all cards //V
+        int currInd = 0;
+        Node<E> curr = this.head;
+        Node<E> prev = curr;
+        if(nodesToOmit == 0){
+            return curr;
+        }
+        while(currInd < nodesToOmit){
             prev = curr;
             curr = curr.next;
             currInd++;
         }
-        prev.next = null;
-        tail = prev;
         return curr;
     }
     @Override

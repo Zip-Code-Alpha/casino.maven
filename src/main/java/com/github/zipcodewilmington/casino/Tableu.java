@@ -45,7 +45,7 @@ public class Tableu {
             //too many cards to omit
             return null;
         }
-        return desiredStack.emmigrateSequence(cardsToOmit);
+        return desiredStack.brieflyEmmigrateSequence(cardsToOmit);
     }
     public boolean putCardsInTableu(int stackNumber,Node<Card> immigrant){
         if(immigrant == null){
@@ -55,7 +55,7 @@ public class Tableu {
         Card headCardOfImmigrant = immigrant.getValue();
         TableuStack desiredStack = stacks.get(stackNumber);
         if(desiredStack.peekTailCard() == null && headCardOfImmigrant.getRank().getValue() == Rank.KING.getValue()){
-            desiredStack.immigrateSequence(immigrant);
+            desiredStack.immigrateSequence(desiredStack.emmigrateSequence(immigrant));
             return true;
         }
         else if(desiredStack.peekTailCard() != null){
