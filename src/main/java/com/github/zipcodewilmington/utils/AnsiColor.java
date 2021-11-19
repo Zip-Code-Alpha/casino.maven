@@ -13,7 +13,8 @@ public enum AnsiColor {
     BLUE("\u001B[34m"),
     PURPLE("\u001B[35m"),
     CYAN("\u001B[36m"),
-    WHITE("\u001B[37m");
+    WHITE("\u001B[37m"),
+    NOTHING("");
 
     private final String color;
 

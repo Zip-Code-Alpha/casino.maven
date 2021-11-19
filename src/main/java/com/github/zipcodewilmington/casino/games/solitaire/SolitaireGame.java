@@ -1,7 +1,10 @@
 package com.github.zipcodewilmington.casino.games.solitaire;
 
 import com.github.zipcodewilmington.casino.*;
+import com.github.zipcodewilmington.utils.AnsiColor;
+import com.github.zipcodewilmington.utils.IOConsole;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 public class SolitaireGame implements GameInterface {
@@ -10,30 +13,39 @@ public class SolitaireGame implements GameInterface {
     private Talon talon;
     private Tableu tableu;
     private Foundations foundations;
+    private final IOConsole console = new IOConsole(AnsiColor.WHITE);
     //add multiplayer functionality
-    private List<PlayerInterface> players;
+    private PlayerInterface player;
     public SolitaireGame(){
-        players = new ArrayList<>();
     }
 
     @Override
     public void add(PlayerInterface player) {
-        players.add(player);
+        this.player = player;
     }
 
     @Override
     public void remove(PlayerInterface player) {
-        players.remove(player);
+        this.player = null;
     }
 
     @Override
     public void run() {
-        /**
-        if(!players.isEmpty()){
+        if(player == null) {
             this.launchSequence();
+            int i = 0;
+            while(!this.foundations.areAllFoundationsFull()) {
+                console.println(printGame());
+                String input = player.play();
+            }
         }
-         */
-
+        else{
+                System.out.println("Players is empty");
+        }
+    }
+    private String printGame() {
+        //and prompt?
+        return null;
     }
     private void launchSequence(){
         this.deck = new Deck();

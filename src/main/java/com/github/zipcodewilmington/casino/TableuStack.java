@@ -37,7 +37,27 @@ public class TableuStack {
     public void immigrateSequence(Node<Card> other){
         showing.addNode(other);
     }
-
+    public boolean isEmpty(){
+        return showing.isEmpty() && hiddenStack.isEmpty();
+    }
+    public int getSize(){
+        return showing.getSize();
+    }
+    public Card peekTailCard(){
+        if(this.isEmpty()){
+            System.out.println("tableu is empty");
+            return null;
+        }
+        if(showing == null){
+            System.out.println("showing is null; this should not be shown");
+            return null;
+        }
+        if(showing.getTail() == null){
+            System.out.println("no top card");
+            return null;
+        }
+        return showing.getTail().value;
+    }
     public NodedLinkedList<Card> peekShowing(){
         return this.showing;
     }

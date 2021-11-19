@@ -25,7 +25,7 @@ public class NodedLinkedList<E> {
     public Node<E> getHead(){
         return this.head;
     }
-    public Node<E> getTail(){
+    public Node<E> getTail(){ //this is the end of the sequence
         return this.tail;
     }
     private void addMultipleNodes(Node<E> newbies){ //add to tailV
@@ -60,7 +60,9 @@ public class NodedLinkedList<E> {
     public boolean isEmpty(){
         return head == null;
     }
-
+    public int getSize(){
+        return size;
+    }
     //pre-condition: nTO is not less than 0 and does not exceed or equal the size of the list
     public Node<E> retrieveSubList(int nodesToOmit){ //start from head and go down // zero nTO is all cards //V
         int currInd = 0;

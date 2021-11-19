@@ -24,8 +24,11 @@ public class Foundations {
             return false;
         }
         else if(desiredStack.peek().getRank().getValue() != Rank.KING.getValue()){
-            Card topCard = desiredStack.pop();
-            if(topCard.getSuit().getValue() == card.getSuit().getValue()){
+            Card topCard = null;
+            if((topCard = desiredStack.peek())==null){
+                return false;
+            }
+            else if(topCard.getSuit().getValue() == card.getSuit().getValue()){
                 if(topCard.getRank().getValue() + 1 == card.getRank().getValue()){
                     desiredStack.push(card);
                     return true;
@@ -40,5 +43,27 @@ public class Foundations {
             System.out.println("Invalid move: foundation is full");
             return false;
         }
+    }
+
+    public Card takeFromFoundation(int foundationNumber){
+        if(foundations.get(foundationNumber) == null){
+            //foundation is empty
+            return null;
+        }
+        return foundations.get(foundationNumber).pop();
+    }
+    public boolean areAllFoundationsFull(){
+        for (int i = 0; i < NUMBER_OF_FOUNDATIONS; i++) {
+            Card topCard = foundations.get(i).peek();
+            if(topCard == null){
+                return false;
+            }
+            else{
+                if(topCard.getRank().getValue() != Rank.KING.getValue()){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
