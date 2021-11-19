@@ -10,7 +10,6 @@ import java.io.Console;
 
 public class SolitairePlayer implements PlayerInterface {
     CasinoAccount casinoAccount;
-    private E e;
     private final IOConsole console = new IOConsole(AnsiColor.GREEN);
     public SolitairePlayer(CasinoAccount casinoAccount){
         this.casinoAccount = casinoAccount;
