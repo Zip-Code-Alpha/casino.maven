@@ -38,6 +38,7 @@ public class TableuStack {
         return showing.retrieveSubList(nodeToRemove);
     }
     public Node<Card> brieflyEmmigrateSequence(int cardsToOmit){return showing.peekSubList(cardsToOmit);}
+    public Node<Card> brieflyEmmigrateSequence(Node<Card> nodeToRemove){return showing.peekSubList(nodeToRemove);}
     //make this a boolean and allow it to judge
     public void immigrateSequence(Node<Card> other){
         showing.addNode(other);

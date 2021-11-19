@@ -41,13 +41,16 @@ public class SolitaireGame implements GameInterface {
     public void run() {
         if(player == null) {
             this.launchSequence();
-            int i = 0;
-            while(!this.foundations.areAllFoundationsFull()) {
+            boolean keepGoing = true;
+            while(!this.foundations.areAllFoundationsFull() && keepGoing) {
                 console.println(PROMPT);
                 console.println(printGame());
                 //ex command c1,2: c2
                 List<String> input = player.play();
-                if(!takeInput(input)){
+                if(input.get(0).equals("EXIT")){
+                    keepGoing = false;
+                }
+                else if(!takeInput(input)){
                     console.println("INVALID COMMAND");
                 }
             }
@@ -69,6 +72,56 @@ public class SolitaireGame implements GameInterface {
         this.stock = new Stock(deck);
     }
     private boolean takeInput(List<String> input){
+        //DRAW
+        if(input.get(0).equals("DRAW")){
+            if(!stock.isEmpty()){
+                switch(stock.getSize()){
+                    case 2:
+                        talon.accept(stock.draw());
+                        talon.accept(stock.draw());
+                        return true;
+                    case 1:
+                        talon.accept(stock.draw());
+                        return true;
+                    case 0:
+                        console.println("RESET STOCK");
+                        return false;
+                    default:
+                        talon.accept(stock.draw());
+                        talon.accept(stock.draw());
+                        talon.accept(stock.draw());
+                        return true;
+                }
+            }
+            console.println("RESET STOCK");
+            return false;
+        }
+        //RESET
+        if(input.get(0).equals("RESET")){
+            return this.stock.acceptTalon(talon.toStock());
+        }
+        //talon to foundation
+        if(input.get(0).equals("TALON")) {
+            if(input.get(1).equals("F")){
+                return foundations.addToFoundation(talon.donate(),Integer.parseInt(input.get(2)));
+            }
+            //talon to tableu
+            if(input.get(1).equals("T")){
+                return tableu.putCardsInTableu(Integer.parseInt(input.get(2)),new Node<Card>(talon.donate(),null));
+            }
+            console.println("Invalid command");
+            return false;
+        }
+        //tableu to tableu
+        if(input.get(0).equals("T")){
+            if(input.size() == 3){
+                //return tableu.putCardsInTableu(Integer.parseInt(input.get(1)),tableu.ge)
+                console.println("Tableu requires 2 arguments");
+            }
+        }
+        //tableu to foundation
+        //foundation to foundation
+        //foundation to tableu
         return false;
     }
 }

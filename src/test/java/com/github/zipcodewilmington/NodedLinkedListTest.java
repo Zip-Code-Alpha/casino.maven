@@ -67,4 +67,11 @@ public class NodedLinkedListTest {
         listOf3.retrieveSubList(listOf2.getHead());
         Assertions.assertEquals(expected,listOf3);
     }
+    @Test
+    public void peekSubListTest(){
+        beforeTest();
+        Node<Integer> expected= new Node<Integer>(1, new Node<Integer>(0,null));
+        Node<Integer> actual = listOf3.peekSubList(listOf2.getHead());
+        Assertions.assertEquals(expected,actual);
+    }
 }

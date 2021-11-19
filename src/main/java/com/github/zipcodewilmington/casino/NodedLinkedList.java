@@ -81,6 +81,16 @@ public class NodedLinkedList<E> {
         tail = prev;
         return curr;
     }
+    public Node<E> peekSubList(Node<E> nodeToRemove){
+        Node<E> curr = this.head;
+        if(new NodedLinkedList<E>(nodeToRemove).equals(this)){
+            return curr;
+        }
+        while(!curr.equals(nodeToRemove)){
+            curr = curr.next;
+        }
+        return curr;
+    }
     //pre-condition: nTO is not less than 0 and does not exceed or equal the size of the list
     public Node<E> peekSubList(int nodesToOmit){//start from head and go down // zero nTO is all cards //V
         int currInd = 0;

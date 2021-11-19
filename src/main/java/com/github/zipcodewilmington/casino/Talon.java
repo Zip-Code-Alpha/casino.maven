@@ -24,7 +24,7 @@ public class Talon {
         this.displayQueue.push(card);
     }
     //check if able to donate in outside class
-    public Card donate(Card card){
+    public Card donate(){
         if(displayQueue.size() > MAX_AMOUNT_IN_DISPLAY_QUEUE){
             System.out.println("overfilled display(donate)");
             return null;
@@ -49,7 +49,7 @@ public class Talon {
         }
         LinkedList<Card> temp = talonStack;
         this.talonStack.clear();
-        Collections.reverse(talonStack);
+        Collections.reverse(temp);
         return temp;
     }
     //toString of Card //call every update?
