@@ -72,7 +72,7 @@ public class NodedLinkedList<E> {
             head = null;
             return curr;
         }
-        while(!curr.next.equals(nodeToRemove)){
+        while(!curr.equals(nodeToRemove)){
             size++;
             prev = curr;
             curr = curr.next;

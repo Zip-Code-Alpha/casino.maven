@@ -57,13 +57,14 @@ public class NodedLinkedListTest {
     public void retrieveSubListTest(){
         beforeTest();
         NodedLinkedList<Integer> expected= new NodedLinkedList<>(new Node<>(1, null));
-        listOf2.retrieveSubList(new Node(0,null));
-        Assertions.assertEquals(expected,listOf3);
+        listOf2.retrieveSubList(new Node<Integer>(0,null));
+        Assertions.assertEquals(expected,listOf2);
     }
     @Test
     public void retrieveSubListTest2(){
         beforeTest();
         NodedLinkedList<Integer> expected= new NodedLinkedList<>(new Node<>(2, null));
         listOf3.retrieveSubList(listOf2.getHead());
+        Assertions.assertEquals(expected,listOf3);
     }
 }
