@@ -25,6 +25,9 @@ public class NodedLinkedList<E> {
     public Node<E> getHead(){
         return this.head;
     }
+    public Node<E> getTail(){
+        return this.tail;
+    }
     private void addMultipleNodes(Node<E> newbies){ //add to tailV
         Node<E> temp = newbies;
         if(tail != null){

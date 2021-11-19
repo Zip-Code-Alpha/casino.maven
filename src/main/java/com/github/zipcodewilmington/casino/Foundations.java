@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Foundations {
     public static final int NUMBER_OF_FOUNDATIONS = 4;
-    List<LinkedList<Card>> foundations = new ArrayList<>();
+    private List<LinkedList<Card>> foundations = new ArrayList<>();
     public Foundations(){
         for (int i = 0; i < NUMBER_OF_FOUNDATIONS; i++) {
             foundations.add(new LinkedList<>());

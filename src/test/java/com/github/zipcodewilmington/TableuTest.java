@@ -1,11 +1,22 @@
 package com.github.zipcodewilmington;
 
+import com.github.zipcodewilmington.casino.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class TableuTest {
+    private Tableu tableu = new Tableu(new Deck());
     @Test
     public void initTest(){
         //creates a proper tableu with everything in it
+        Assertions.assertEquals(new Card(Rank.KING, Suit.DIAMONDS),tableu.peekTopCard(0));
+        Assertions.assertEquals(new Card(Rank.QUEEN, Suit.CLUBS),tableu.peekTopCard(1));
+        Assertions.assertEquals(new Card(Rank.TEN, Suit.HEARTS),tableu.peekTopCard(2));
+        Assertions.assertEquals(new Card(Rank.NINE, Suit.SPADES),tableu.peekTopCard(3));
+        Assertions.assertEquals(new Card(Rank.EIGHT, Suit.SPADES),tableu.peekTopCard(4));
+        Assertions.assertEquals(new Card(Rank.SEVEN, Suit.HEARTS),tableu.peekTopCard(5));
+        Assertions.assertEquals(new Card(Rank.SEVEN, Suit.CLUBS),tableu.peekTopCard(6));
+
     }
     @Test
     public void drawCardTest(){

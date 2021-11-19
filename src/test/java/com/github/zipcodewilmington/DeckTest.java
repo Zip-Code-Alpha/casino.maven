@@ -38,8 +38,26 @@ public class DeckTest {
         Card expected = new Card(Rank.KING, Suit.DIAMONDS);
         //when
         Card actual = deck.getCard();
+
         //then
         Assert.assertEquals(expected,actual);
+    }
+    @Test
+    public void testGet2Card() {
+        //given
+        Deck deck = new Deck();
+        Card expected = new Card(Rank.QUEEN, Suit.CLUBS);
+        //when
+        deck.getCard();//king of diamonds
+        deck.getCard();//kind of hearts
+        deck.getCard();//king of spades
+        deck.getCard();//king of clubs
+        deck.getCard();//queen of diamonds
+        deck.getCard();//queen of hearts
+        deck.getCard();//queen of spades
+        Card actual = deck.getCard();//queen of clubs
+        //then
+        Assert.assertEquals(expected, actual);
     }
     @Test
     public void testShuffle(){
