@@ -23,7 +23,6 @@ public class Tableu {
         //populate the stacks
         for(int i = 0; i < NUMBER_OF_THINGS_IN_A_SEPTET; i++){
             stacks.get(i).addCard(deck.getCard());
-            System.out.println(j);
             if(i == NUMBER_OF_THINGS_IN_A_SEPTET - 1){
                 i = j;
                 j++;
@@ -34,14 +33,17 @@ public class Tableu {
             stacks.get(i).flipHidden();
         }
     }
-    //how will moving the cards work?
-    //testing methods
+    //how will moving the cards work? (s
     //pre-condition: stack number must not be greater than 6 (will probably only be used for testing purposes)
     public Card peekTopCard(int stackNumber){
         return stacks.get(stackNumber).peekShowing().getTail().getValue();
     }
+
+    //testing methods
+    /**
     public TableuStack getStack(int stackNumber){
         return stacks.get(stackNumber);
     }
+     **/
 
 }

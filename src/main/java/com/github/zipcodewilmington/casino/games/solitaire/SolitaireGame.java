@@ -1,13 +1,15 @@
 package com.github.zipcodewilmington.casino.games.solitaire;
 
-import com.github.zipcodewilmington.casino.CasinoAccount;
-import com.github.zipcodewilmington.casino.Deck;
-import com.github.zipcodewilmington.casino.GameInterface;
-import com.github.zipcodewilmington.casino.PlayerInterface;
+import com.github.zipcodewilmington.casino.*;
+
 import java.util.ArrayList;
 import java.util.List;
 public class SolitaireGame implements GameInterface {
     private Deck deck;
+    private Stock stock;
+    private Talon talon;
+    private Tableu tableu;
+    private Foundations foundations;
     //add multiplayer functionality
     private List<PlayerInterface> players;
     public SolitaireGame(){
@@ -26,16 +28,19 @@ public class SolitaireGame implements GameInterface {
 
     @Override
     public void run() {
+        /**
         if(!players.isEmpty()){
             this.launchSequence();
-
         }
+         */
 
     }
-    public void launchSequence(){
+    private void launchSequence(){
         this.deck = new Deck();
-        deck.shuffle();
-        //SolitaireStackSeptet
-        //the remainder of the deck which will prob
+        this.deck.shuffle();
+        this.tableu = new Tableu(deck);
+        this.foundations = new Foundations();
+        this.talon = new Talon();
+        this.stock = new Stock(deck);
     }
 }

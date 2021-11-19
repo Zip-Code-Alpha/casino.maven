@@ -25,7 +25,11 @@ public class Deck {
         if (o == null || getClass() != o.getClass()) return false;
         return this.getDeck().equals(((Deck) o).cards);
     }
+    //wipes out the rest of the deck;
     public LinkedList<Card> getDeck(){
+        //dunno if these two lines will work
+        LinkedList<?> temp = (LinkedList<?>) this.cards.clone();
+        this.cards.clear();
         return this.cards;
     }
 
