@@ -1,5 +1,8 @@
 package com.github.zipcodewilmington.casino;
 
+import com.github.zipcodewilmington.utils.AnsiColor;
+import com.github.zipcodewilmington.utils.IOConsole;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +10,9 @@ public class Tableu {
     //unblocked cards vs blockedcards
     //what data structure should i use to represent the septet  stacks
     //
-
+    private final IOConsole tableuConsole = new IOConsole(AnsiColor.GREEN);
+    private final IOConsole blackCardPrinter = new IOConsole(AnsiColor.BLACK);
+    private final IOConsole redCardPrinter = new IOConsole(AnsiColor.RED);
     private final int NUMBER_OF_THINGS_IN_A_SEPTET = 7;
     private List<TableuStack> stacks = new ArrayList<>();
     public Tableu(Deck deck){
@@ -58,6 +63,9 @@ public class Tableu {
     //used in conjunction with putCards in Tableu
     public void removeCardsFromTableu(int stackNumber,Node<Card>immigrant){
         this.stacks.get(stackNumber).emmigrateSequence(immigrant);
+        if(this.stacks.get(stackNumber).peekShowing().isEmpty() && !(this.stacks.isEmpty())){
+            this.stacks.get(stackNumber).flipHidden();
+        }
     }
     public boolean putCardsInTableu(int stackNumber,Node<Card> immigrant){
         if(immigrant == null){
@@ -88,12 +96,14 @@ public class Tableu {
     public Card peekTopCard(int stackNumber){
         return stacks.get(stackNumber).peekShowing().getTail().getValue();
     }
+    public void display(){
+        tableuConsole.println("TABLEU:");
+        for(int i = 0; i < NUMBER_OF_THINGS_IN_A_SEPTET; i++){
+            tableuConsole.print("\tT" + i + ": ");
+            stacks.get(i).display();
+            tableuConsole.print("\n");
+        }
 
-    //testing methods
-    /**
-    public TableuStack getStack(int stackNumber){
-        return stacks.get(stackNumber);
     }
-     **/
 
 }

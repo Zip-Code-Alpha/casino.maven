@@ -1,5 +1,8 @@
 package com.github.zipcodewilmington.casino;
 
+import com.github.zipcodewilmington.utils.AnsiColor;
+import com.github.zipcodewilmington.utils.IOConsole;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -7,6 +10,9 @@ import java.util.List;
 public class Foundations {
     public static final int NUMBER_OF_FOUNDATIONS = 4;
     private List<LinkedList<Card>> foundations = new ArrayList<>();
+    private IOConsole blackCardPrinter = new IOConsole(AnsiColor.BLACK);
+    private IOConsole redCardPrinter = new IOConsole(AnsiColor.RED);
+    private IOConsole foundationsPrinter = new IOConsole(AnsiColor.CYAN);
     public Foundations(){
         for (int i = 0; i < NUMBER_OF_FOUNDATIONS; i++) {
             foundations.add(new LinkedList<>());
@@ -75,5 +81,26 @@ public class Foundations {
             }
         }
         return true;
+    }
+    public void display(){
+        foundationsPrinter.print("FOUNDATIONS: ");
+        for(int i = 0; i < NUMBER_OF_FOUNDATIONS; i++){
+            foundationsPrinter.print("F" + i + "(");
+            if(foundations.get(i).isEmpty()){
+                foundationsPrinter.print("EMPTY)");
+            }
+            else if(peekFromFoundation(i).getSuit().getColor() == AnsiColor.BLACK){
+                blackCardPrinter.print(peekFromFoundation(i).toString());
+                foundationsPrinter.print(")");
+            }
+            else{
+                redCardPrinter.print(peekFromFoundation(i).toString());
+                foundationsPrinter.print(")");
+            }
+            if(i != NUMBER_OF_FOUNDATIONS - 1){
+                foundationsPrinter.print(", ");
+            }
+        }
+        foundationsPrinter.print("\n");
     }
 }

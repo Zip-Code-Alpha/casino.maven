@@ -1,10 +1,17 @@
 package com.github.zipcodewilmington.casino;
 
+import com.github.zipcodewilmington.utils.AnsiColor;
+import com.github.zipcodewilmington.utils.IOConsole;
+
 import java.util.LinkedList;
 
 public class TableuStack {
     private NodedLinkedList<Card> showing;
-    private LinkedList<Card> hiddenStack; //stack
+    private LinkedList<Card> hiddenStack;//stack
+    private final IOConsole blackCardPrinter = new IOConsole(AnsiColor.BLACK);
+    private final IOConsole errorPrinter = new IOConsole(AnsiColor.WHITE);
+    private final IOConsole tableuConsole = new IOConsole(AnsiColor.GREEN);
+    private final IOConsole redCardPrinter = new IOConsole(AnsiColor.RED);//stack
     public TableuStack(){
         hiddenStack = new LinkedList<>();
         showing = new NodedLinkedList<>();
@@ -22,11 +29,11 @@ public class TableuStack {
         else if(hiddenStack.isEmpty()){
             //reveal a blank space ( how to represent a blank space?)(null suit and null rank)
             //maybe I should just have both be null
-            System.out.println("Adding Blank Space Implementation");
+            errorPrinter.println("Space is blank");
         }
         else{
             //throw a custom exception?
-            System.out.println("ExceptionPlaceHolder: the showing stack is not empty");
+            errorPrinter.println("the showing stack is not empty");
         }
         //logger perhaps?
     }
@@ -66,6 +73,28 @@ public class TableuStack {
     }
     public NodedLinkedList<Card> peekShowing(){
         return this.showing;
+    }
+    public void display(){
+        if(hiddenStack != null && ! hiddenStack.isEmpty()) {
+            for (int i = 0; i < hiddenStack.size(); i++) {
+                tableuConsole.print(String.format("%3s", "["));
+            }
+        }
+        if(showing != null && !showing.isEmpty()){
+            Node<Card> temp = showing.head;
+            while(temp != null){
+                if(temp.getValue().getSuit().getColor() == AnsiColor.BLACK){
+                    blackCardPrinter.print(String.format("%3s",temp.getValue().toString()));
+                }
+                else{
+                    redCardPrinter.print(String.format("%3s",temp.getValue().toString()));
+                }
+                temp = temp.next;
+            }
+        }
+        if(showing.isEmpty() && hiddenStack.isEmpty()){
+            tableuConsole.print("(EMPTY)");
+        }
     }
     //testing methods
     /*

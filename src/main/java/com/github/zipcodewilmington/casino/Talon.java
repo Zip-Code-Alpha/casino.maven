@@ -2,6 +2,8 @@ package com.github.zipcodewilmington.casino;
 
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
+
 //3rd card is top of talon
 public class Talon {
     //talon has hidden while display has displayed?
@@ -65,8 +67,21 @@ public class Talon {
         Collections.reverse(temp);
         return temp;
     }
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("TALON");
+        if(this.displayQueue.isEmpty()){
+            sb.append("EMPTY");
+            return sb.toString();
+        }
+        //double check this
+        sb.append("(card available to draw is at the end):");
+        return sb.toString();
+
+    }
     //toString of Card //call every update?
-    public String display(){
-        return "";
+    public List<Card> getCards(){
+        return this.displayQueue;
     }
 }

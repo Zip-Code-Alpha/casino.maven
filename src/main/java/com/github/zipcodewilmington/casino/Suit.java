@@ -17,7 +17,7 @@ public enum Suit {
     String getShortening(){
         return this.abbr;
     }
-    AnsiColor getColor(){
+    public AnsiColor getColor(){
         return this.color;
     }
     int getValue(){ return this.ordinal();};

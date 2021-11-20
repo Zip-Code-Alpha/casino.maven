@@ -4,12 +4,14 @@ import com.github.zipcodewilmington.casino.*;
 import com.github.zipcodewilmington.utils.AnsiColor;
 import com.github.zipcodewilmington.utils.IOConsole;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 public class SolitaireGame implements GameInterface {
-    private static final String PROMPT = "Available Commands: DRAW,RESET,EXIT,and \"x:y\" where x can be ta,b fa or TALON and y" +
-            " can be fa or ta\n\t-x\n\t\t-ta,b = t is short for Tableu (the 7 stacks of cards at the bottom), a is the index of the Tableu(1-7 inclusive), and b is the number of" +
+    private final String PROMPT = "Available Commands: DRAW,RESET,EXIT,and \"x:y\" where x can be ta,b fa or TALON and y" +
+            " can be fa or ta\n\t-x\n\t\t-ta,b = t is short for Tableu (the 7 stacks of cards at the bottom), a is the index of the Tableu(0-6 inclusive), and b is the number of" +
             " cards in the sequence you want to omit(0inclusive - (length of sequence)non-inclusive)\n\t\t" +
-            "-fa = f is short for Foundation (the 4 initially empty stacks of cards), a is the index of the foundation (1-4 inclusive)\n\t\t" +
+            "-fa = f is short for Foundation (the 4 initially empty stacks of cards), a is the index of the foundation (0-3 inclusive)\n\t\t" +
             "-TALON is the name given to the cards most immediately drawn from the draw pile\n" +
             "The colon represents a directional operator specifying where you want to put your selection (x goes to y)\n" +
             "\t-y\n\t\t-ta = tableu and index(you may place your selection only on the the top of a destination tableu stack)\n\t\t" +
@@ -18,7 +20,14 @@ public class SolitaireGame implements GameInterface {
     private Talon talon;
     private Tableu tableu;
     private Foundations foundations;
-    private final IOConsole console = new IOConsole(AnsiColor.WHITE);
+    private final IOConsole promptConsole = new IOConsole(AnsiColor.YELLOW);
+    private final IOConsole stockConsole = new IOConsole(AnsiColor.BLUE);
+    private final IOConsole talonConsole = new IOConsole(AnsiColor.PURPLE);
+    private final IOConsole tableuConsole = new IOConsole(AnsiColor.GREEN);
+    private final IOConsole errorConsole = new IOConsole(AnsiColor.WHITE);
+    private final IOConsole redCardConsole = new IOConsole(AnsiColor.RED);
+    private final IOConsole blackCardConsole = new IOConsole(AnsiColor.BLACK);
+
     //add multiplayer functionality
     private PlayerInterface player;
     public SolitaireGame(){
@@ -40,36 +49,58 @@ public class SolitaireGame implements GameInterface {
             this.launchSequence();
             boolean keepGoing = true;
             while(!this.foundations.areAllFoundationsFull() && keepGoing) {
-                console.println(PROMPT);
-                console.println(printGame());
+                //console.println(PROMPT);
+                //console.println(printGame());
+                printGame();
                 //ex command c1,2: c2
                 List<String> input = player.play();
                 if(input.get(0).equals("EXIT")){
                     keepGoing = false;
                 }
                 else if(!takeInput(input)){
-                    console.println("INVALID COMMAND");
+                    errorConsole.println("INVALID COMMAND");
                 }
             }
         }
         else{
-                System.out.println("Players is empty");
+                errorConsole.println("Players is empty");
         }
     }
-    private String printGame() {
-        //and prompt?
-        return null;
+    public void printGame() {
+        promptConsole.println(PROMPT);
+        stockConsole.println(stock.toString());
+        talonConsole.print(talon.toString());
+        printCards(talon.getCards());
+        this.foundations.display();
+        this.tableu.display();
+
     }
-    private void launchSequence(){
+    private void printCards(List<Card> cards){
+        for(Card card: cards){
+            if(!(card == null) && !((card.getSuit()) == null)){
+                Suit suit = card.getSuit();
+                if(suit.getColor().equals(AnsiColor.BLACK)){
+                    blackCardConsole.print(card.toString());
+                }
+                else{
+                    redCardConsole.print(card.toString());
+                }
+            }
+        }
+        errorConsole.print("\n");
+    }
+    //private when it comes to present
+    public void launchSequence(){
         Deck deck = new Deck();
-        deck.shuffle();
+        //deck.shuffle();
         this.tableu = new Tableu(deck);
         this.foundations = new Foundations();
         this.talon = new Talon();
         this.stock = new Stock(deck);
     }
+    //make public after done
     //for point to point if its true then actually remove
-    private boolean takeInput(List<String> input){
+    public boolean takeInput(List<String> input){
         //DRAW
         if(input.get(0).equals("DRAW")){
             if(!stock.isEmpty()){
@@ -82,7 +113,7 @@ public class SolitaireGame implements GameInterface {
                         talon.accept(stock.draw());
                         return true;
                     case 0:
-                        console.println("RESET STOCK");
+                        errorConsole.println("RESET STOCK");
                         return false;
                     default:
                         talon.accept(stock.draw());
@@ -91,12 +122,15 @@ public class SolitaireGame implements GameInterface {
                         return true;
                 }
             }
-            console.println("RESET STOCK");
+            errorConsole.println("RESET STOCK");
             return false;
         }
         //RESET
         if(input.get(0).equals("RESET")){
-            return this.stock.acceptTalon(talon.toStock());
+            if(this.stock.isEmpty()){
+                return this.stock.acceptTalon(talon.toStock());
+            }
+            return false;
         }
         //talon to foundation
         if(input.get(0).equals("TALON")) {
@@ -115,7 +149,7 @@ public class SolitaireGame implements GameInterface {
                 }
                 return false;
             }
-            console.println("Invalid command");
+            errorConsole.println("Invalid command");
             return false;
         }
         //tableu to tableu
@@ -184,4 +218,5 @@ public class SolitaireGame implements GameInterface {
         }
         return false;
     }
+    //test methods;
 }

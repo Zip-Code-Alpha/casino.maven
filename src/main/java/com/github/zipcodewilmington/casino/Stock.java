@@ -5,7 +5,7 @@ import java.util.LinkedList;
 public class Stock {
     LinkedList<Card> stockStack;
     public Stock(Deck deck){
-        this.stockStack = deck.getDeck();
+        this.stockStack = (LinkedList<Card>) deck.getDeck();
     }
     public Card draw(){
         return stockStack.pop();
@@ -27,4 +27,13 @@ public class Stock {
         return stockStack.size();
     }
     //toString of this should be the card back; except if its empty
+    @Override
+    public String toString(){
+        if(stockStack.isEmpty()){
+            return  "STOCK: EMPTY";
+        }
+        else{
+            return  "STOCK: READY TO DRAW";
+        }
+    }
 }
