@@ -4,8 +4,6 @@ import com.github.zipcodewilmington.casino.*;
 import com.github.zipcodewilmington.utils.AnsiColor;
 import com.github.zipcodewilmington.utils.IOConsole;
 
-import java.io.Console;
-import java.util.ArrayList;
 import java.util.List;
 public class SolitaireGame implements GameInterface {
     private static final String PROMPT = "Available Commands: DRAW,RESET,EXIT,and \"x:y\" where x can be ta,b fa or TALON and y" +
@@ -16,7 +14,6 @@ public class SolitaireGame implements GameInterface {
             "The colon represents a directional operator specifying where you want to put your selection (x goes to y)\n" +
             "\t-y\n\t\t-ta = tableu and index(you may place your selection only on the the top of a destination tableu stack)\n\t\t" +
             "-fa = foundation and index";
-    private Deck deck;
     private Stock stock;
     private Talon talon;
     private Tableu tableu;
@@ -64,13 +61,14 @@ public class SolitaireGame implements GameInterface {
         return null;
     }
     private void launchSequence(){
-        this.deck = new Deck();
-        this.deck.shuffle();
+        Deck deck = new Deck();
+        deck.shuffle();
         this.tableu = new Tableu(deck);
         this.foundations = new Foundations();
         this.talon = new Talon();
         this.stock = new Stock(deck);
     }
+    //for point to point if its true then actually remove
     private boolean takeInput(List<String> input){
         //DRAW
         if(input.get(0).equals("DRAW")){
@@ -103,25 +101,87 @@ public class SolitaireGame implements GameInterface {
         //talon to foundation
         if(input.get(0).equals("TALON")) {
             if(input.get(1).equals("F")){
-                return foundations.addToFoundation(talon.donate(),Integer.parseInt(input.get(2)));
+                if(foundations.addToFoundation(talon.preDonate(),Integer.parseInt(input.get(2)))) {
+                    talon.donate();
+                    return true;
+                }
+                return false;
             }
             //talon to tableu
             if(input.get(1).equals("T")){
-                return tableu.putCardsInTableu(Integer.parseInt(input.get(2)),new Node<Card>(talon.donate(),null));
+                if(tableu.putCardsInTableu(Integer.parseInt(input.get(2)),new Node<>(talon.preDonate(),null))){
+                    talon.donate();
+                    return true;
+                }
+                return false;
             }
             console.println("Invalid command");
             return false;
         }
         //tableu to tableu
         if(input.get(0).equals("T")){
-            if(input.size() == 3){
-                //return tableu.putCardsInTableu(Integer.parseInt(input.get(1)),tableu.ge)
-                console.println("Tableu requires 2 arguments");
+            int donorIndex;
+            int receiverIndex;
+            if(input.size() == 4){
+                donorIndex = Integer.parseInt(input.get(1));
+                receiverIndex = Integer.parseInt(input.get(3));
+                //simplify by putting input.get into separate vars
+                //if true then push
+                if(input.get(2).equals("T")) {
+                    //tableu to tableu; single card off the top
+                    if(tableu.putCardsInTableu(receiverIndex, tableu.peekCardsFromTableu(donorIndex, new Node<>(tableu.peekTopCard(donorIndex), null)))){
+                        tableu.removeCardsFromTableu(donorIndex,new Node<>(tableu.peekTopCard(donorIndex), null));
+                        return true;
+                    }
+                    return false;
+                }
+                //tableu to foundation
+                else if(input.get(2).equals("F")){
+                    if(foundations.addToFoundation(tableu.peekCardsFromTableu(donorIndex, new Node<>(tableu.peekTopCard(donorIndex), null)).getValue(),receiverIndex)){
+                        tableu.removeCardsFromTableu(donorIndex,new Node<>(tableu.peekTopCard(donorIndex), null));
+                        return true;
+                    }
+                    return false;
+                }
+                //tableu to tableu sequence
             }
+            else if(input.size()==5){//0 == t //1 == index //2 == nodestoomit //3 ==t; //4 == index
+                int nodesToOmit = Integer.parseInt(input.get(2));
+                donorIndex = Integer.parseInt(input.get(1));
+                receiverIndex = Integer.parseInt(input.get(4));
+                if(tableu.putCardsInTableu(receiverIndex, tableu.peekCardsFromTableu(donorIndex,nodesToOmit))){
+                    tableu.removeCardsFromTableu(donorIndex,tableu.peekCardsFromTableu(donorIndex,nodesToOmit));
+                    return true;
+                }
+                return false;
+            }
+            return false;
         }
-        //tableu to foundation
         //foundation to foundation
-        //foundation to tableu
+        //0 = f; 1 = donor index; 2 = receiver; 3 = receiverIndex
+        if(input.get(0).equals("F")){
+            if(input.size() == 4) {
+                int donorIndex = Integer.parseInt(input.get(1));
+                int receiverIndex = Integer.parseInt(input.get(3));
+                if(input.get(2).equals("F")){
+                    if(foundations.addToFoundation(foundations.peekFromFoundation(donorIndex),receiverIndex)){
+                        foundations.takeFromFoundation(donorIndex);
+                        return true;
+                    }
+                    return false;
+                }
+                //foundation to tableu
+                if(input.get(2).equals("T")){
+                    if(tableu.putCardsInTableu(receiverIndex,new Node<>(foundations.peekFromFoundation(donorIndex),null))){
+                        foundations.takeFromFoundation(donorIndex);
+                        return true;
+                    }
+                    return false;
+                }
+                return false;
+            }
+            return false;
+        }
         return false;
     }
 }

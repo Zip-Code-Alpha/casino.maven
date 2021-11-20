@@ -23,6 +23,19 @@ public class Talon {
         }
         this.displayQueue.push(card);
     }
+    public Card preDonate(){
+        if(displayQueue.size() > MAX_AMOUNT_IN_DISPLAY_QUEUE){
+            System.out.println("overfilled display(donate)");
+            return null;
+        }
+        else if(displayQueue.size() == 0){
+            System.out.println("Error: Nothing to Donate");
+            return null;
+        }
+        else{
+            return displayQueue.peek();
+        }
+    }
     //check if able to donate in outside class
     public Card donate(){
         if(displayQueue.size() > MAX_AMOUNT_IN_DISPLAY_QUEUE){

@@ -34,7 +34,15 @@ public class Tableu {
         }
     }
     //check if this is empty
-    public Node<Card> takeCardsFromTableu(int stackNumber, int cardsToOmit){
+    public Node<Card> peekCardsFromTableu(int stackNumber, Node<Card> nodeToTake){
+        TableuStack desiredStack = stacks.get(stackNumber);
+        if(desiredStack.isEmpty()){
+            //stack is empty
+            return null;
+        }
+        return desiredStack.brieflyEmmigrateSequence(nodeToTake);
+    }
+    public Node<Card> peekCardsFromTableu(int stackNumber, int cardsToOmit){
         TableuStack desiredStack = stacks.get(stackNumber);
         if(desiredStack.isEmpty()){
             //stack is empty
@@ -47,6 +55,10 @@ public class Tableu {
         }
         return desiredStack.brieflyEmmigrateSequence(cardsToOmit);
     }
+    //used in conjunction with putCards in Tableu
+    public void removeCardsFromTableu(int stackNumber,Node<Card>immigrant){
+        this.stacks.get(stackNumber).emmigrateSequence(immigrant);
+    }
     public boolean putCardsInTableu(int stackNumber,Node<Card> immigrant){
         if(immigrant == null){
             System.out.println("Immigrant is blank");
@@ -55,7 +67,7 @@ public class Tableu {
         Card headCardOfImmigrant = immigrant.getValue();
         TableuStack desiredStack = stacks.get(stackNumber);
         if(desiredStack.peekTailCard() == null && headCardOfImmigrant.getRank().getValue() == Rank.KING.getValue()){
-            desiredStack.immigrateSequence(desiredStack.emmigrateSequence(immigrant));
+            desiredStack.immigrateSequence(immigrant);
             return true;
         }
         else if(desiredStack.peekTailCard() != null){

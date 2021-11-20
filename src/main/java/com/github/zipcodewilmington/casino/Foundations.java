@@ -48,7 +48,13 @@ public class Foundations {
             return false;
         }
     }
-
+    public Card peekFromFoundation(int foundationNumber){
+        if(foundations.get(foundationNumber) == null){
+            //foundation is empty
+            return null;
+        }
+        return foundations.get(foundationNumber).peek();
+    }
     public Card takeFromFoundation(int foundationNumber){
         if(foundations.get(foundationNumber) == null){
             //foundation is empty
