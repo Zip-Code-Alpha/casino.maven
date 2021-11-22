@@ -33,6 +33,9 @@ public class NodedLinkedList<E> {
         if(tail != null){
             tail.next = newbies;
         }
+        else if(head == null) {
+            head = newbies;
+        }
         while(temp.next != null){
             size++;
             temp = temp.next;
