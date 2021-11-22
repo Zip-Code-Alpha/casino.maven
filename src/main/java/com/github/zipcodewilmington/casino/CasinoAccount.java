@@ -6,8 +6,25 @@ package com.github.zipcodewilmington.casino;
  * The `ArcadeAccount` is used to log into the system to select a `Game` to play.
  */
 public class CasinoAccount {
-    String username;
-    String password;
+    private String username;
+    private String password;
     double balance;
+    public CasinoAccount(){
+        this.username = "";
+        this.password = "";
+        this.balance = 0;
+    }
+    public CasinoAccount(String username, String password){
+        this.username = username;
+        this.password = password;
+        balance = 0;
+    }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }

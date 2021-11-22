@@ -1,4 +1,4 @@
-package com.github.zipcodewilmington.casino;
+package com.github.zipcodewilmington.utils;
 
 public class NodedLinkedList<E> {
     Node<E> head; //head is the top of the straight
@@ -66,13 +66,14 @@ public class NodedLinkedList<E> {
     public Node<E> retrieveSubList(Node<E> nodeToRemove){
         Node<E> curr = this.head;
         Node<E> prev = curr;
-        size = 0;
         if(new NodedLinkedList<E>(nodeToRemove).equals(this)){
             tail = null;
             head = null;
             return curr;
         }
+        size = 0;
         while(!curr.equals(nodeToRemove)){
+            //System.out.println("FF");
             size++;
             prev = curr;
             curr = curr.next;

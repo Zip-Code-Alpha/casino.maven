@@ -1,14 +1,10 @@
 package com.github.zipcodewilmington;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.github.zipcodewilmington.casino.Node;
-import com.github.zipcodewilmington.casino.NodedLinkedList;
-import org.junit.Assert;
+import com.github.zipcodewilmington.utils.Node;
+import com.github.zipcodewilmington.utils.NodedLinkedList;
 import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import javax.management.remote.MBeanServerForwarder;
 
 public class NodedLinkedListTest {
     protected NodedLinkedList<Integer> listOf2;
@@ -26,8 +22,8 @@ public class NodedLinkedListTest {
     @Test
     public void equalsTest(){
         beforeTest();
-        NodedLinkedList<Integer> eq = new NodedLinkedList<Integer>(new Node<Integer>(1,new Node<Integer>(0,null)));
-        Assertions.assertEquals(listOf2, eq);
+        NodedLinkedList<Integer> eq = new NodedLinkedList<Integer>(new Node<Integer>(0,null));
+        Assertions.assertEquals(new NodedLinkedList<Integer>(new Node<Integer>(0,null)), eq);
     }
     @Test
     public void addToNullTest(){

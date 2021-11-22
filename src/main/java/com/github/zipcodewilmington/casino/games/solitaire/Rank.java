@@ -1,4 +1,4 @@
-package com.github.zipcodewilmington.casino;
+package com.github.zipcodewilmington.casino.games.solitaire;
 
 public enum Rank {
     ACE("A"),
@@ -19,7 +19,7 @@ public enum Rank {
     Rank(String abbr) {
         this.abbr = abbr;
     }
-    int getValue(){
+    public int getValue(){
         return this.ordinal();
     }
 

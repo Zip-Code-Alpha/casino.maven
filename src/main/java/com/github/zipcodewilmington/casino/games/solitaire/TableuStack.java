@@ -1,5 +1,7 @@
-package com.github.zipcodewilmington.casino;
+package com.github.zipcodewilmington.casino.games.solitaire;
 
+import com.github.zipcodewilmington.utils.Node;
+import com.github.zipcodewilmington.utils.NodedLinkedList;
 import com.github.zipcodewilmington.utils.AnsiColor;
 import com.github.zipcodewilmington.utils.IOConsole;
 
@@ -22,7 +24,7 @@ public class TableuStack {
     }
     //flips the first card of the hidden stack if and only if the showing stack is null
     public void flipHidden(){
-        if(showing.head == null &&  ! hiddenStack.isEmpty()){
+        if(showing.getHead() == null &&  ! hiddenStack.isEmpty()){
             //System.out.println(hiddenStack.peek());
             showing.addNode(new Node<>(hiddenStack.pop(), null));
         }
@@ -69,7 +71,7 @@ public class TableuStack {
             System.out.println("no top card");
             return null;
         }
-        return showing.getTail().value;
+        return showing.getTail().getValue();
     }
     public NodedLinkedList<Card> peekShowing(){
         return this.showing;
@@ -81,7 +83,7 @@ public class TableuStack {
             }
         }
         if(showing != null && !showing.isEmpty()){
-            Node<Card> temp = showing.head;
+            Node<Card> temp = showing.getHead();
             while(temp != null){
                 if(temp.getValue().getSuit().getColor() == AnsiColor.BLACK){
                     blackCardPrinter.print(String.format("%3s",temp.getValue().toString()));
@@ -89,7 +91,7 @@ public class TableuStack {
                 else{
                     redCardPrinter.print(String.format("%3s",temp.getValue().toString()));
                 }
-                temp = temp.next;
+                temp = temp.getNext();
             }
         }
         if(showing.isEmpty() && hiddenStack.isEmpty()){

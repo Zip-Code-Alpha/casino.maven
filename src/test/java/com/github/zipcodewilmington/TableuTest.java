@@ -1,6 +1,7 @@
 package com.github.zipcodewilmington;
 
-import com.github.zipcodewilmington.casino.*;
+import com.github.zipcodewilmington.casino.games.solitaire.*;
+import com.github.zipcodewilmington.utils.Node;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +21,8 @@ public class TableuTest {
     }
     @Test
     public void drawCardTest(){
-        //when a TableuFaceUp is a depleted a TableuFaceDown auto donates a card to the FaceUp
+        tableu.getStack(0).emmigrateSequence(new Node<>(new Card(Rank.KING,Suit.DIAMONDS),null));
+        System.out.println(tableu.peekTopCard(0));
     }
     @Test
     public void correctSequencingTest(){

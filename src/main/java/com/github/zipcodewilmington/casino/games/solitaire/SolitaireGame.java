@@ -3,9 +3,8 @@ package com.github.zipcodewilmington.casino.games.solitaire;
 import com.github.zipcodewilmington.casino.*;
 import com.github.zipcodewilmington.utils.AnsiColor;
 import com.github.zipcodewilmington.utils.IOConsole;
+import com.github.zipcodewilmington.utils.Node;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 public class SolitaireGame implements GameInterface {
     private final String PROMPT = "Available Commands: DRAW,RESET,EXIT,and \"x:y\" where x can be ta,b fa or TALON and y" +
@@ -45,12 +44,10 @@ public class SolitaireGame implements GameInterface {
 
     @Override
     public void run() {
-        if(player == null) {
+        if(player != null) {
             this.launchSequence();
             boolean keepGoing = true;
             while(!this.foundations.areAllFoundationsFull() && keepGoing) {
-                //console.println(PROMPT);
-                //console.println(printGame());
                 printGame();
                 //ex command c1,2: c2
                 List<String> input = player.play();
@@ -60,6 +57,12 @@ public class SolitaireGame implements GameInterface {
                 else if(!takeInput(input)){
                     errorConsole.println("INVALID COMMAND");
                 }
+            }
+            if(!keepGoing){
+                promptConsole.println("EXITING...");
+            }
+            else{
+                promptConsole.println("NICCCCCEEE JOBBBBBB!!!");
             }
         }
         else{
@@ -92,7 +95,7 @@ public class SolitaireGame implements GameInterface {
     //private when it comes to present
     public void launchSequence(){
         Deck deck = new Deck();
-        //deck.shuffle();
+        deck.shuffle();
         this.tableu = new Tableu(deck);
         this.foundations = new Foundations();
         this.talon = new Talon();
@@ -101,6 +104,7 @@ public class SolitaireGame implements GameInterface {
     //make public after done
     //for point to point if its true then actually remove
     public boolean takeInput(List<String> input){
+        errorConsole.println(input.toString());
         //DRAW
         if(input.get(0).equals("DRAW")){
             if(!stock.isEmpty()){
@@ -143,6 +147,7 @@ public class SolitaireGame implements GameInterface {
             }
             //talon to tableu
             if(input.get(1).equals("T")){
+                errorConsole.println(talon.preDonate().toString() + " " + tableu.peekTopCard(Integer.parseInt(input.get(2))));
                 if(tableu.putCardsInTableu(Integer.parseInt(input.get(2)),new Node<>(talon.preDonate(),null))){
                     talon.donate();
                     return true;
@@ -162,19 +167,21 @@ public class SolitaireGame implements GameInterface {
                 //simplify by putting input.get into separate vars
                 //if true then push
                 if(input.get(2).equals("T")) {
-                    //tableu to tableu; single card off the top
+                    //tableu to tableu; single card off the top |
                     if(tableu.putCardsInTableu(receiverIndex, tableu.peekCardsFromTableu(donorIndex, new Node<>(tableu.peekTopCard(donorIndex), null)))){
                         tableu.removeCardsFromTableu(donorIndex,new Node<>(tableu.peekTopCard(donorIndex), null));
                         return true;
                     }
+                    errorConsole.println("tab to tab (1) error");
                     return false;
                 }
-                //tableu to foundation
+                //tableu to foundation |
                 else if(input.get(2).equals("F")){
                     if(foundations.addToFoundation(tableu.peekCardsFromTableu(donorIndex, new Node<>(tableu.peekTopCard(donorIndex), null)).getValue(),receiverIndex)){
-                        tableu.removeCardsFromTableu(donorIndex,new Node<>(tableu.peekTopCard(donorIndex), null));
+                        tableu.removeCardsFromTableu(donorIndex,new Node<>(tableu.peekTopCard(donorIndex), null));//this line sus
                         return true;
                     }
+                    errorConsole.println("tab to fou error");
                     return false;
                 }
                 //tableu to tableu sequence
@@ -187,8 +194,10 @@ public class SolitaireGame implements GameInterface {
                     tableu.removeCardsFromTableu(donorIndex,tableu.peekCardsFromTableu(donorIndex,nodesToOmit));
                     return true;
                 }
+                errorConsole.println("multi tab to tab error");
                 return false;
             }
+            errorConsole.println("general tab error");
             return false;
         }
         //foundation to foundation

@@ -1,5 +1,6 @@
-package com.github.zipcodewilmington.casino;
+package com.github.zipcodewilmington.casino.games.solitaire;
 
+import com.github.zipcodewilmington.utils.Node;
 import com.github.zipcodewilmington.utils.AnsiColor;
 import com.github.zipcodewilmington.utils.IOConsole;
 
@@ -94,6 +95,9 @@ public class Tableu {
     //how will moving the cards work? (s
     //pre-condition: stack number must not be greater than 6 (will probably only be used for testing purposes)
     public Card peekTopCard(int stackNumber){
+        if(stacks.get(stackNumber).peekShowing().getTail()== null){
+            return null;
+        }
         return stacks.get(stackNumber).peekShowing().getTail().getValue();
     }
     public void display(){
@@ -104,6 +108,10 @@ public class Tableu {
             tableuConsole.print("\n");
         }
 
+    }
+    //testing methods
+    public TableuStack getStack(int index){
+        return stacks.get(index);
     }
 
 }

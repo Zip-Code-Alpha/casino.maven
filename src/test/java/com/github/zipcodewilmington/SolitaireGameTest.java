@@ -13,12 +13,11 @@ import java.util.Collections;
 
 public class SolitaireGameTest {
     private SolitaireGame game;
-    private IOConsole console = new IOConsole();
     @Before
     public void before(){
-        this.game = new SolitaireGame();
-        game.add(new SolitairePlayer(new CasinoAccount()));
-        game.launchSequence();
+        //this.game = new SolitaireGame();
+        //game.add(new SolitairePlayer(new CasinoAccount()));
+
     }
     @Test
     public void initTest(){
@@ -29,17 +28,19 @@ public class SolitaireGameTest {
     @Test
     public void initPrintTest(){
         before();
-        draw3test();
         //stock
         //talon
-        game.printGame();
         //foundations
         //tableu
 
     }
+    @Test
+    public void tabtofouTest(){
+
+    }
     public void draw3test(){
         before();
-        game.takeInput(new ArrayList<>(Collections.singleton("DRAW")));
+
     }
 
 }

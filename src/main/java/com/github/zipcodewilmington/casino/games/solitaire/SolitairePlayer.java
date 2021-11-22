@@ -27,6 +27,7 @@ public class SolitairePlayer implements PlayerInterface {
         input = input.replace("\\s",""); //removes whitespace
         String[] splitter = input.split(":");
         List<String> output = new ArrayList<>();
+        //draw ; reset ; exit
         if(splitter[0].equals(input)){
             switch(input){
                 case"DRAW": case"RESET": case"EXIT":
@@ -38,21 +39,20 @@ public class SolitairePlayer implements PlayerInterface {
             }
             return (E) output;
         }
+        //talon
         else if(splitter.length == 2){
             String initWord = splitter[0];
             if(initWord.equals("TALON")){
                 output.add("TALON");
             }
+
             else if(splitter[0].charAt(0) == 'T'){
                 output.add(splitter[0].substring(0,1));
                 output.add(splitter[0].substring(1,2));
-                String[] resplitter = new String[0];
-                if((resplitter = splitter[0].split(",")).length != 2){
-                    output.clear();
-                    output.add("INVALID COMMAND");
-                    return (E) output;
+                String[] resplitter;
+                if((resplitter = splitter[0].split(",")).length == 2){
+                    output.add(resplitter[1]);
                 }
-                output.add(resplitter[1]);
             }
             else if(splitter[0].charAt(0) == 'F'){
                 output.add(splitter[0].substring(0,1));
@@ -60,12 +60,12 @@ public class SolitairePlayer implements PlayerInterface {
                 //try catch in-game for indexes of foundations and tableus game
             }
             else{
-                output.add("INVALID COMMAND");
+                output.add("INVALID COMMAND 2");
                 return (E) output;
             }
             return (E) playTo(output,splitter[1]);
         }
-        output.add("INVALID COMMAND");
+        output.add("INVALID COMMAND 3");
         return (E) output;
     }
     private List<String> playTo(List<String> output,String secondWord) {

@@ -1,4 +1,7 @@
-package com.github.zipcodewilmington.casino;
+package com.github.zipcodewilmington.casino.games.solitaire;
+
+import com.github.zipcodewilmington.casino.games.solitaire.Card;
+import com.github.zipcodewilmington.casino.games.solitaire.Deck;
 
 import java.util.LinkedList;
 

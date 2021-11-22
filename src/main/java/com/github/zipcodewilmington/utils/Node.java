@@ -1,4 +1,4 @@
-package com.github.zipcodewilmington.casino;
+package com.github.zipcodewilmington.utils;
 
 public class Node<E> {
     E value;
@@ -20,5 +20,9 @@ public class Node<E> {
     @Override
     public String toString(){
         return this.value.toString();
+    }
+
+    public Node<E> getNext() {
+        return this.next;
     }
 }

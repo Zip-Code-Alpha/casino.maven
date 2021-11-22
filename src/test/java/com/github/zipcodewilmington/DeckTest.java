@@ -1,9 +1,9 @@
 package com.github.zipcodewilmington;
 
-import com.github.zipcodewilmington.casino.Card;
-import com.github.zipcodewilmington.casino.Deck;
-import com.github.zipcodewilmington.casino.Rank;
-import com.github.zipcodewilmington.casino.Suit;
+import com.github.zipcodewilmington.casino.games.solitaire.Card;
+import com.github.zipcodewilmington.casino.games.solitaire.Deck;
+import com.github.zipcodewilmington.casino.games.solitaire.Rank;
+import com.github.zipcodewilmington.casino.games.solitaire.Suit;
 import org.junit.Assert;
 import org.junit.Test;
 
