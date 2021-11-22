@@ -67,13 +67,14 @@ public class NodedLinkedList<E> {
         Node<E> curr = this.head;
         Node<E> prev = curr;
         if(new NodedLinkedList<E>(nodeToRemove).equals(this)){
+            System.out.println("FF");
             tail = null;
             head = null;
+            size = 0;
             return curr;
         }
         size = 0;
         while(!curr.equals(nodeToRemove)){
-            //System.out.println("FF");
             size++;
             prev = curr;
             curr = curr.next;

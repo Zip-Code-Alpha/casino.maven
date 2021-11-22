@@ -21,8 +21,13 @@ public class TableuTest {
     }
     @Test
     public void drawCardTest(){
-        tableu.getStack(0).emmigrateSequence(new Node<>(new Card(Rank.KING,Suit.DIAMONDS),null));
-        System.out.println(tableu.peekTopCard(0));
+        tableu.getStack(2).emmigrateSequence(new Node<>(new Card(Rank.TEN,Suit.SPADES),null));
+        System.out.println(tableu.getStack(2).peekShowing().getSize());
+        tableu.getStack(2).flipHidden();
+        System.out.println(tableu.getStack(2).peekShowing().getSize());
+        System.out.println(tableu.peekTopCard(2));
+        //tableu.getStack(2).emmigrateSequence(new Node<>(tableu.peekTopCard(2),null));
+        System.out.println(tableu.peekTopCard(2));
     }
     @Test
     public void correctSequencingTest(){
