@@ -32,7 +32,6 @@ public class Card {
         return Objects.hash(rank, suit);
     }
     @Override
-    //might want to add a border over the card
     public String toString(){
         return this.rank.getShortening() + this.suit.getShortening();
     }

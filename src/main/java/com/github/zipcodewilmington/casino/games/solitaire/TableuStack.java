@@ -98,20 +98,4 @@ public class TableuStack {
             tableuConsole.print("(EMPTY)");
         }
     }
-    //testing methods
-    /*
-    public boolean isHiddenStackEmpty(){
-        return this.hiddenStack.isEmpty();
-    }
-
-     */
-    /*
-    public String printHiddenStack(){
-        StringBuilder sb = new StringBuilder();
-        for(Card card: this.hiddenStack){
-            sb.append(card.toString());
-        }
-        return sb + "afdsjkl\n";
-    }
-     */
 }

@@ -21,17 +21,19 @@ public class TableuTest {
     }
     @Test
     public void drawCardTest(){
-        tableu.getStack(2).emmigrateSequence(new Node<>(new Card(Rank.TEN,Suit.SPADES),null));
-        System.out.println(tableu.getStack(2).peekShowing().getSize());
-        tableu.getStack(2).flipHidden();
-        System.out.println(tableu.getStack(2).peekShowing().getSize());
-        System.out.println(tableu.peekTopCard(2));
-        //tableu.getStack(2).emmigrateSequence(new Node<>(tableu.peekTopCard(2),null));
-        System.out.println(tableu.peekTopCard(2));
+        tableu.getStack(1).emmigrateSequence(new Node<Card>(new Card(Rank.QUEEN, Suit.CLUBS),null));
+        tableu.getStack(1).immigrateSequence(new Node<Card>(new Card(Rank.KING,Suit.DIAMONDS),new Node<>(new Card(Rank.QUEEN,Suit.CLUBS),null)));
+        tableu.getStack(0).emmigrateSequence(new Node<Card>(tableu.peekTopCard(0),null));
+        System.out.println(tableu.peekTopCard(0) + "empty");
+        System.out.println(tableu.peekTopCard(1) + "has stuff");
+        if(tableu.putCardsInTableu(0, tableu.peekCardsFromTableu(1,0))){
+            tableu.removeCardsFromTableu(1,tableu.peekCardsFromTableu(1,0));
+        }
+        System.out.println(tableu.peekTopCard(0)); //should have thing
+        System.out.println(tableu.peekTopCard(1));
     }
     @Test
     public void correctSequencingTest(){
-        //does a valid sequence work
     }
     @Test
     public void outOfRankOrderSequencingTest(){

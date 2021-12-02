@@ -2,7 +2,6 @@ package com.github.zipcodewilmington.casino.games.solitaire;
 
 import java.util.*;
 
-//make stack?
 public class Deck {
     LinkedList<Card> cards;
     public Deck() {

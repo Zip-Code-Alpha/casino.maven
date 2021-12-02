@@ -65,12 +65,12 @@ public class Talon {
     //**must be checked outside of method**
     public LinkedList<Card> toStock(){
         while(!displayQueue.isEmpty()){
-            this.talonStack.push(displayQueue.pollLast());
+            this.talonStack.push(displayQueue.poll());
         }
         LinkedList<Card> temp = (LinkedList<Card>) this.talonStack.clone();
         this.talonStack.clear();
-        System.out.println(temp.toString());
         Collections.reverse(temp);
+
         return temp;
     }
     @Override

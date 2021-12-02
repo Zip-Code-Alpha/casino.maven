@@ -104,7 +104,6 @@ public class SolitaireGame implements GameInterface {
     //make public after done
     //for point to point if its true then actually remove
     public boolean takeInput(List<String> input){
-        errorConsole.println(input.toString());
         //DRAW
         if(input.get(0).equals("DRAW")){
             if(!stock.isEmpty()){
@@ -227,5 +226,4 @@ public class SolitaireGame implements GameInterface {
         }
         return false;
     }
-    //test methods;
 }
