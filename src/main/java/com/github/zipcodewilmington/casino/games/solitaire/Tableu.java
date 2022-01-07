@@ -109,6 +109,14 @@ public class Tableu {
         }
 
     }
+    public boolean isTableuClear(){
+        for (int i = 0; i < NUMBER_OF_THINGS_IN_A_SEPTET; i++) {
+            if(!stacks.get(i).isAllExposed()){
+                return false;
+            }
+        }
+        return true;
+    }
     //testing methods
     public TableuStack getStack(int index){
         return stacks.get(index);

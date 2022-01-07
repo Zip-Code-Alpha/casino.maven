@@ -7,7 +7,7 @@ import com.github.zipcodewilmington.utils.Node;
 
 import java.util.List;
 public class SolitaireGame implements GameInterface {
-    private final String PROMPT = "Available Commands: DRAW,RESET,EXIT,and \"x:y\" where x can be ta,b fa or TALON and y" +
+    private final String PROMPT = "Available Commands: (D)RAW,(R)ESET,(E)XIT,and \"x:y\" where x can be ta,b fa or TALON and y" +
             " can be fa or ta\n\t-x\n\t\t-ta,b = t is short for Tableu (the 7 stacks of cards at the bottom), a is the index of the Tableu(0-6 inclusive), and b is the number of" +
             " cards in the sequence you want to omit(0inclusive - (length of sequence)non-inclusive)\n\t\t" +
             "-fa = f is short for Foundation (the 4 initially empty stacks of cards), a is the index of the foundation (0-3 inclusive)\n\t\t" +
@@ -47,11 +47,12 @@ public class SolitaireGame implements GameInterface {
         if(player != null) {
             this.launchSequence();
             boolean keepGoing = true;
-            while(!this.foundations.areAllFoundationsFull() && keepGoing) {
+            //double check second condition
+            while(((!this.foundations.areAllFoundationsFull()) &&d (!tableu.isTableuClear() || !talon.isEmpty() || !stock.isEmpty())) && keepGoing) {
                 printGame();
                 //ex command c1,2: c2
                 List<String> input = player.play();
-                if(input.get(0).equals("EXIT")){
+                if(input.get(0).equals("EXIT") || input.get(0).equals("E")){
                     keepGoing = false;
                 }
                 else if(!takeInput(input)){
@@ -72,25 +73,10 @@ public class SolitaireGame implements GameInterface {
     public void printGame() {
         promptConsole.println(PROMPT);
         stockConsole.println(stock.toString());
-        talonConsole.print(talon.toString());
-        printCards(talon.getCards());
+        this.talon.display();
         this.foundations.display();
         this.tableu.display();
 
-    }
-    private void printCards(List<Card> cards){
-        for(Card card: cards){
-            if(!(card == null) && !((card.getSuit()) == null)){
-                Suit suit = card.getSuit();
-                if(suit.getColor().equals(AnsiColor.BLACK)){
-                    blackCardConsole.print(card.toString());
-                }
-                else{
-                    redCardConsole.print(card.toString());
-                }
-            }
-        }
-        errorConsole.print("\n");
     }
     //private when it comes to present
     public void launchSequence(){
@@ -105,7 +91,7 @@ public class SolitaireGame implements GameInterface {
     //for point to point if its true then actually remove
     public boolean takeInput(List<String> input){
         //DRAW
-        if(input.get(0).equals("DRAW")){
+        if(input.get(0).equals("DRAW") || input.get(0).equals("D")){
             if(!stock.isEmpty()){
                 switch(stock.getSize()){
                     case 2:
@@ -129,7 +115,7 @@ public class SolitaireGame implements GameInterface {
             return false;
         }
         //RESET
-        if(input.get(0).equals("RESET")){
+        if(input.get(0).equals("RESET") || input.get(0).equals("R")){
             if(this.stock.isEmpty()){
                 return this.stock.acceptTalon(talon.toStock());
             }
@@ -146,7 +132,6 @@ public class SolitaireGame implements GameInterface {
             }
             //talon to tableu
             if(input.get(1).equals("T")){
-                errorConsole.println(talon.preDonate().toString() + " " + tableu.peekTopCard(Integer.parseInt(input.get(2))));
                 if(tableu.putCardsInTableu(Integer.parseInt(input.get(2)),new Node<>(talon.preDonate(),null))){
                     talon.donate();
                     return true;

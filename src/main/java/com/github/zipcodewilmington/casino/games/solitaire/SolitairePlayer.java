@@ -30,7 +30,7 @@ public class SolitairePlayer implements PlayerInterface {
         //draw ; reset ; exit
         if(splitter[0].equals(input)){
             switch(input){
-                case"DRAW": case"RESET": case"EXIT":
+                case"DRAW": case"RESET": case"EXIT": case"D": case"R": case"E":
                     output.add(input);
                     break;
                 default:

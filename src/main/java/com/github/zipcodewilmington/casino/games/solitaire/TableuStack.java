@@ -98,4 +98,7 @@ public class TableuStack {
             tableuConsole.print("(EMPTY)");
         }
     }
+    public boolean isAllExposed(){
+        return this.hiddenStack.isEmpty();
+    }
 }

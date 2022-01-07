@@ -1,6 +1,5 @@
 package com.github.zipcodewilmington.casino.games.solitaire;
 
-import com.github.zipcodewilmington.casino.games.solitaire.Card;
 import com.github.zipcodewilmington.utils.AnsiColor;
 import com.github.zipcodewilmington.utils.IOConsole;
 
@@ -11,11 +10,15 @@ import java.util.List;
 //3rd card is top of talon
 public class Talon {
     //talon has hidden while display has displayed?
-    private LinkedList<Card> talonStack;
+    private final LinkedList<Card> talonStack;
+    private final IOConsole blackCardConsole = new IOConsole(AnsiColor.BLACK);
+    private final IOConsole redCardConsole = new IOConsole(AnsiColor.RED);
+    private final IOConsole talonConsole = new IOConsole(AnsiColor.PURPLE);
+
     private static final int MAX_AMOUNT_IN_DISPLAY_QUEUE = 3;
-    private IOConsole errorConsole = new IOConsole(AnsiColor.BLUE);
+    private final IOConsole errorConsole = new IOConsole(AnsiColor.BLUE);
     //stack of displayed cards? which puts the rest in the talon
-    private LinkedList<Card> displayQueue;
+    private final LinkedList<Card> displayQueue;
     public Talon(){
         this.talonStack = new LinkedList<>();
         this.displayQueue = new LinkedList<>();
@@ -26,9 +29,9 @@ public class Talon {
             errorConsole.println("overfilled display(accept)");
         }
         else if (displayQueue.size() == MAX_AMOUNT_IN_DISPLAY_QUEUE) {
-            this.talonStack.push(this.displayQueue.poll());
+            this.talonStack.push(this.displayQueue.pollLast());
         }
-        this.displayQueue.offer(card);
+        this.displayQueue.push(card);
     }
     public Card preDonate(){
         if(displayQueue.size() > MAX_AMOUNT_IN_DISPLAY_QUEUE){
@@ -65,7 +68,7 @@ public class Talon {
     //**must be checked outside of method**
     public LinkedList<Card> toStock(){
         while(!displayQueue.isEmpty()){
-            this.talonStack.push(displayQueue.poll());
+            this.talonStack.push(displayQueue.pollLast());
         }
         LinkedList<Card> temp = (LinkedList<Card>) this.talonStack.clone();
         this.talonStack.clear();
@@ -73,21 +76,40 @@ public class Talon {
 
         return temp;
     }
-    @Override
-    public String toString(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("TALON");
+    public void display(){
+
+        talonConsole.print("TALON: ");
         if(this.displayQueue.isEmpty()){
-            sb.append(": (EMPTY)");
-            return sb.toString();
+            talonConsole.print("EMPTY");
         }
         //double check this
-        sb.append("(card available to draw is on the left):");
-        return sb.toString();
+        //talonConsole.print(": ");
+        printCards(this.displayQueue);
 
     }
+    //make sure talon works as intendedt1r
     //toString of Card //call every update?
     public List<Card> getCards(){
         return this.displayQueue;
     }
+    public boolean isEmpty(){
+        return this.displayQueue.isEmpty();
+    }
+    public void printCards(List<Card>cards){
+        Collections.reverse(cards);
+        for(Card card: cards){
+            if(!(card == null) && !((card.getSuit()) == null)){
+                Suit suit = card.getSuit();
+                if(suit.getColor().equals(AnsiColor.BLACK)){
+                    blackCardConsole.print(card.toString());
+                }
+                else{
+                    redCardConsole.print(card.toString());
+                }
+            }
+        }
+        Collections.reverse(cards);
+        errorConsole.print("\n");
+    }
+    //current problem is that when stack is only 3 cards; order is reversed every time
 }

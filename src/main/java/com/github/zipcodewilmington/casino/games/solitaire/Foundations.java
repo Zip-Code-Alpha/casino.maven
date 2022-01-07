@@ -20,11 +20,11 @@ public class Foundations {
     }
     //check if ok?
     public boolean addToFoundation(Card card, int foundationNumber){
-        LinkedList<Card> desiredStack = foundations.get(foundationNumber);
-        if(foundationNumber > 4){
+        if(foundationNumber >= 4){
             System.out.println("Invalid Foundation Index");
             return false;
         }
+        LinkedList<Card> desiredStack = foundations.get(foundationNumber);
         if(desiredStack.isEmpty()) {
             if (card.getRank().getValue() == Rank.ACE.getValue()) {
                 desiredStack.push(card);
