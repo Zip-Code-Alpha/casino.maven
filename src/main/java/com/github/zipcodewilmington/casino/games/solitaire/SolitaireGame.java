@@ -48,7 +48,7 @@ public class SolitaireGame implements GameInterface {
             this.launchSequence();
             boolean keepGoing = true;
             //double check second condition
-            while(((!this.foundations.areAllFoundationsFull()) &&d (!tableu.isTableuClear() || !talon.isEmpty() || !stock.isEmpty())) && keepGoing) {
+            while(((!this.foundations.areAllFoundationsFull()) && (!tableu.isTableuClear() || !talon.isEmpty() || !stock.isEmpty())) && keepGoing) {
                 printGame();
                 //ex command c1,2: c2
                 List<String> input = player.play();
