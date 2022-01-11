@@ -16,7 +16,7 @@ public class Talon {
     private final IOConsole talonConsole = new IOConsole(AnsiColor.PURPLE);
 
     private static final int MAX_AMOUNT_IN_DISPLAY_QUEUE = 3;
-    private final IOConsole errorConsole = new IOConsole(AnsiColor.BLUE);
+    private final IOConsole errorConsole = new IOConsole(AnsiColor.WHITE);
     //stack of displayed cards? which puts the rest in the talon
     private final LinkedList<Card> displayQueue;
     public Talon(){
@@ -39,7 +39,7 @@ public class Talon {
             return null;
         }
         else if(displayQueue.size() == 0){
-            errorConsole.println("Error: Nothing to Donate");
+            errorConsole.println("(Nothing in talon)");
             return null;
         }
         else{
@@ -53,7 +53,7 @@ public class Talon {
             return null;
         }
         else if(displayQueue.size() == 0){
-            errorConsole.println("Error: Nothing to Donate");
+            errorConsole.println("(Nothing in talon)");
             return null;
         }
         else{

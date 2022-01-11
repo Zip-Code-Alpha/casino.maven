@@ -69,8 +69,7 @@ public class Tableu {
         }
     }
     public boolean putCardsInTableu(int stackNumber,Node<Card> immigrant){
-        if(immigrant == null){
-            System.out.println("Immigrant is blank");
+        if(immigrant == null || immigrant.getValue() == null){
             return false;
         }
         Card headCardOfImmigrant = immigrant.getValue();

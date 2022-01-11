@@ -60,15 +60,14 @@ public class TableuStack {
     }
     public Card peekTailCard(){
         if(this.isEmpty()){
-            System.out.println("tableu is empty");
             return null;
         }
         if(showing == null){
-            System.out.println("showing is null; this should not be shown");
+            errorPrinter.println("showing is null; this should not be shown");
             return null;
         }
         if(showing.getTail() == null){
-            System.out.println("no top card");
+            errorPrinter.println("no top card");
             return null;
         }
         return showing.getTail().getValue();

@@ -25,6 +25,7 @@ public class SolitairePlayer implements PlayerInterface {
     public <E> E play() {
         String input = console.getStringInput("What's your next move?").toUpperCase();
         input = input.replace("\\s",""); //removes whitespace
+        //input = input.replace(";",":");
         String[] splitter = input.split(":");
         List<String> output = new ArrayList<>();
         //draw ; reset ; exit

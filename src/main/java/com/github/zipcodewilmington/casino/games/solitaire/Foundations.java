@@ -13,6 +13,7 @@ public class Foundations {
     private IOConsole blackCardPrinter = new IOConsole(AnsiColor.BLACK);
     private IOConsole redCardPrinter = new IOConsole(AnsiColor.RED);
     private IOConsole foundationsPrinter = new IOConsole(AnsiColor.CYAN);
+    private IOConsole errorConsole = new IOConsole(AnsiColor.WHITE);
     public Foundations(){
         for (int i = 0; i < NUMBER_OF_FOUNDATIONS; i++) {
             foundations.add(new LinkedList<>());
@@ -30,7 +31,7 @@ public class Foundations {
                 desiredStack.push(card);
                 return true;
             }
-            System.out.println("Invalid Move: try placing *ACES* on empty foundations");
+            errorConsole.println("(Try placing *ACES* on empty foundations)");
             return false;
         }
         else if(desiredStack.peek().getRank().getValue() != Rank.KING.getValue()){
@@ -43,14 +44,14 @@ public class Foundations {
                     desiredStack.push(card);
                     return true;
                 }
-                System.out.println("Invalid move: mismatched ranks");
+                errorConsole.println("(Mismatched ranks)");
                 return false;
             }
-            System.out.println("Invalid move: mismatched ranks");
+            errorConsole.println("(Mismatched ranks)");
             return false;
         }
         else{
-            System.out.println("Invalid move: foundation is full");
+            errorConsole.println("(Foundation is full)");
             return false;
         }
     }

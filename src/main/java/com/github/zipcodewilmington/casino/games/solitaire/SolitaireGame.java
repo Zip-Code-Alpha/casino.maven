@@ -156,7 +156,6 @@ public class SolitaireGame implements GameInterface {
                         tableu.removeCardsFromTableu(donorIndex,new Node<>(tableu.peekTopCard(donorIndex), null));
                         return true;
                     }
-                    errorConsole.println("tab to tab (1) error");
                     return false;
                 }
                 //tableu to foundation |
@@ -165,7 +164,6 @@ public class SolitaireGame implements GameInterface {
                         tableu.removeCardsFromTableu(donorIndex,new Node<>(tableu.peekTopCard(donorIndex), null));//this line sus
                         return true;
                     }
-                    errorConsole.println("tab to fou error");
                     return false;
                 }
                 //tableu to tableu sequence
@@ -178,10 +176,8 @@ public class SolitaireGame implements GameInterface {
                     tableu.removeCardsFromTableu(donorIndex,tableu.peekCardsFromTableu(donorIndex,nodesToOmit));
                     return true;
                 }
-                errorConsole.println("multi tab to tab error");
                 return false;
             }
-            errorConsole.println("general tab error");
             return false;
         }
         //foundation to foundation
