@@ -31,7 +31,7 @@ public class TableuStack {
         else if(hiddenStack.isEmpty()){
             //reveal a blank space ( how to represent a blank space?)(null suit and null rank)
             //maybe I should just have both be null
-            errorPrinter.println("Space is blank");
+            //errorPrinter.println("Space is blank");
         }
         else{
             //throw a custom exception?
